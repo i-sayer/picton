@@ -1,28 +1,32 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <header>
+    <h1>GPTeach <span>Practicum Placement - vue</span></h1>
+  </header>
+  <main>
+    <Students msg="Students"/>
+  </main>
+  <uoaIcons/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Students from './components/Students.vue'
+import uoaIcons from './components/uoa-icon.vue'
+//import icon24 from './components/icon24.vue'
+//<svg><use href="#account"/></svg>
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Students, uoaIcons//, icon24
   }
 }
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
