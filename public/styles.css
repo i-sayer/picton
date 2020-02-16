@@ -311,6 +311,8 @@
     grid-column: 1/-1;
     margin: 0;
     background-color: var(--color-medium);
+    display: flex;
+    align-items: flex-end;
 }
 .card {
     padding: 6px;
