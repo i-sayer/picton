@@ -1,5 +1,6 @@
 # vu-gpteach
 
+I am warming to Vue since discovering **Vuex and **EventBus which fall more in line with web development paradigms.  
 ## Project setup
 ```
 npm install
