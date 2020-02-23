@@ -102,7 +102,6 @@
     grid-gap: 16px;
     grid-template-columns: repeat(auto-fit, minmax(49%, 1fr));
     grid-template-rows: repeat(auto-fit, 45px);
-    min-height: calc(100vh - 200px);
   }
   form>label, form>.group>legend {
     display: flex;
@@ -120,10 +119,12 @@
   form > label > input {
     padding: 4px 0;
   }
-  form > h3 {
+  form > h3, form > footer {
     margin: 0;
     text-align: center;
+    grid-column: 1 / -1;
   }
+
   .group {
     display: flex;
     justify-content: space-evenly;
@@ -196,7 +197,7 @@
       padding: 0.3em 2em 0.4em;
       min-height: 2em;
       width: fit-content;
-      margin: 0.5em;
+      margin: 0.5em 2.5em;
   }
   button:focus,
   .group>input:focus + label::before,
@@ -312,7 +313,7 @@
     margin: 0;
     background-color: var(--color-medium);
     display: flex;
-    align-items: flex-end;
+    align-items: center;
 }
 .card {
     padding: 6px;
@@ -329,12 +330,16 @@
 .icon {
   padding: 3px;
   margin: 3px;
+}
+.icon-button {
+  padding: 3px;
+  margin: 3px;
   border-radius: 50%;
 }
-.icon>use {
+.icon-button>use {
   pointer-events: none;
 }
-.icon:hover {
+.icon-button:hover {
   background-color: var(--color-light-1);
   cursor: pointer;
 }
@@ -368,7 +373,7 @@
   margin-bottom: 0.25rem;
 }
 .card.selected {
-  outline: 5px solid var(--color-success);
+  background-color: chartreuse;
 }
 .card>footer {
   color: var(--color-light-1);

@@ -1,5 +1,5 @@
 <template>
-    <svg viewBox="0 0 24 24" width="24"><use :href="'#'+iconId" /></svg>
+    <svg viewBox="0 0 24 24" width="24" class="icon"><use :href="'#'+iconId" /></svg>
 </template>
 
 <script>
