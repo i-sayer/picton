@@ -1,10 +1,11 @@
 <template>
     <div class="blanket" :class="active?'active':''" @click="hide">
         <form class="dialogBox" ref="dialogBox">
-            <h3>{{dialogTitle}}<icon24 icon-id="close" @click.prevent="cancel" /></h3>
+            <h3><span>{{dialogTitle}}</span><div @click.prevent="cancel"><icon24 icon-id="close" /></div></h3>
             <label v-for='(field,ix) in fields' v-bind:key='ix'>
                 <span>{{field.name}}</span>
-                <input type="text" :value="fields[ix].value" :autofocus="ix==0"/>
+                <!-- <input :name="fields[ix].name" type="text" :value="fields[ix].value" :class="fields[ix].autofocus?'autofoo':''" /> -->
+                <input :name="fields[ix].name" type="text" :value="fields[ix].value" :class="fields[ix].autofocus?'meme':''" />
             </label>
             <footer><button @click.prevent="save">Save</button><button @click.prevent="cancel">Cancel</button></footer>
         </form>
@@ -20,6 +21,7 @@ export default {
             dialogTitle: 'Dialog',
             active: false,
             rec: undefined,
+            savecb: undefined,
             fields: []
         }
     },
@@ -27,23 +29,33 @@ export default {
         icon24
     },
     created(){
-        EventBus.$on("open-dialog", (rec, name) => {
-            //this.$refs["form"].textContent = [rec.firstName,rec.lastName].join(" ");
-            this.dialogTitle = `Edit ${name}`;
-            this.prep(rec);
+        EventBus.$on("open-dialog", (rec, t, fsave) => {
+            this.dialogTitle = `Edit ${t.name}`;
+            this.savecb = fsave;
+            this.prep(rec, t.match);
             this.show();
         });
+        // EventBus.$on("open-dialog", (rec, name, fsave, match) => {
+        //     this.dialogTitle = `Edit ${name}`;
+        //     this.savecb = fsave;
+        //     match = "Auckland";
+        //     this.prep(rec, match);
+        //     this.show();
+        // });
     },
     methods:{
-        prep: function (rec) {
+        prep: function (rec, match) {
             this.rec = rec;
             this.fields = Object.keys(rec).map(u=>{
                 let v = rec[u];
-                return {"name":u, "value":v};
+                let o = {"name":u, "value":v};
+                if (v==match)
+                    Object.assign(o, {autofocus:1});
+                return o;
             });
         },
         save: function () {
-            console.log("Saving");
+            this.savecb(this.$refs.dialogBox);
             this.active = false;
         },
         cancel: function () {
@@ -52,9 +64,13 @@ export default {
         },
         show: function () {
             this.active = true;
-            let af = this.$refs.dialogBox && this.$refs.dialogBox.querySelector('[autofocus]');
-            if (af)
-                af.focus();
+            this.$nextTick(()=>{ // this is an attempt to set the focus to the field who's value matches the text node clicked on the card
+                let af = this.$refs.dialogBox && this.$refs.dialogBox.querySelector('.meme');
+                if (af) {
+                    af.focus();
+                    af.select();
+                }
+            });
         },
         hide: function (event) { /* something wrong here... this is being called by the svg close when it should be calling cancel() */
             if (event.target.classList.contains('blanket')||event.target.classList.contains('icon'))
@@ -103,7 +119,17 @@ export default {
     color: var(--color-light-1);
     position: relative;
 }
-.dialogBox>h3>svg {
+.dialogBox>h3>span {
+    display: inline-block;
+    width: calc(100% - 24px);
+    height: 24px;
+}
+.dialogBox>h3>div {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+}
+.dialogBox>h3>div>svg {
     fill: white;
     stroke: white;
     position: absolute;
