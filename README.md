@@ -1,29 +1,11 @@
-# vu-gpteach
+# PICTON
 
-I am warming to Vue since discovering **Vuex** and **EventBus** which fall more in line with web development paradigms. A list of pros for Vue over Angular...
-1. Vue is newer
-2. Vue is lighter
-3. Vue seems to have a better future path for migrating to native web components
+## A Faculty Team 2 Project
 
-## Project setup
-```
-npm install
-```
+$ git clone .../template.git project-name
+$ cd project-name
+$ git remote remove origin
+$ git remote add origin .../project.git
+$ git push origin master -u
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+$ npm install

@@ -31,7 +31,7 @@ export default {
         }
     },
     mounted: function(){
-        let h, cardlisths = document.querySelectorAll('.card-list>h3');
+        let h, cardlisths = document.querySelectorAll('.card-list>h3,.item-list>h3');
         for (h of cardlisths)
             this.List.push({
                 t:h.textContent.trim(),
@@ -45,7 +45,7 @@ export default {
 
 <style>
 .drawer {
-    flex-basis: 220px;
+    flex-basis: 260px;
 }
 .drawer>section>.item:not(.open) {
     opacity: 0.65;

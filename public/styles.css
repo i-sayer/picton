@@ -43,7 +43,8 @@
     background-color: var(--color-medium);
   }
   header::before {
-    content: url('/img/brand-small.iix');
+    content: url('/img/brand-small.png');
+    margin: 3px 13px 0 3px;
   }
   @media (min-width: 764px) {
     /* on wider than most mobiles */
@@ -61,7 +62,9 @@
     letter-spacing: 1.25px;
     font-weight: 900;
     line-height: 0.9;
-    margin: 0;
+    margin: 0 0 0.35em 0;
+    display: flex;
+    align-items: flex-end;
   }
   
   header > h1 > span {
@@ -97,7 +100,7 @@
   header+main>section {
     flex-grow: 1;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(480px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   }
   
   form {
@@ -313,17 +316,23 @@
     transition: max-height 0.4s ease;
     flex: 1;
     position: relative;
+    grid-column-end: span 3;
+  }
+.item-list {
+  position: relative;
+  padding: 2rem 6px 6px 6px;
+
 }
 .card-list.full-width {
-  grid-column-end: span 3;
+  grid-column-end: span 5;
 }
-.card-list:not(.full-width)+.card-list.full-width {
-  grid-column-end: span 2;
+.card-list:not(.full-width)+.item-list.full-width {
+  grid-column-end: span 1;
 }
-.card-list.hidden {
+.card-list.hidden, .item-list.hidden {
   display: none;
 }
-.card-list>h3 {
+.card-list>h3, .item-list>h3 {
     margin: 0;
     background-color: var(--color-medium);
     display: flex;
@@ -331,6 +340,10 @@
     position: absolute;
     top: 0;
     width: calc(100% - 6px);
+}
+.item>h4{
+  margin: 0;
+  border-bottom: 1px solid var(--color-tertiary);
 }
 .card {
     padding: 6px;
