@@ -136,10 +136,6 @@ export default {
          ]
       },
       {
-         "id":"lbl_cl_6297523",
-         "label":"Research"
-      },
-      {
          "id":"lbl_cl_6265815",
          "label":"Virtual Slide Database",
          "children":[
