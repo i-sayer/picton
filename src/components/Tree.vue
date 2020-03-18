@@ -1,6 +1,6 @@
 <template>
     <ul class="tree-list">
-      <node-tree :node="treeData"></node-tree>
+      <node-tree :node="treeData" :lh="lineHeight"></node-tree>
     </ul>
 </template>
 
@@ -13,6 +13,14 @@ export default {
   },
   components: {
     NodeTree
+  },
+  data: function () {
+    return {
+      lineHeight: 27
+    }
+  },
+  updated: function(){
+    this.lineHeight = this.$el.offsetHeight;
   }
 };
 </script>

@@ -2,7 +2,7 @@
   <li v-if="node.children" class="folder" :class="{'closed':closed}">
     <span @click.self="toggleOpen">{{ node.label }}</span>
     <ul>
-      <node v-for="child in node.children" v-bind:key="child.ord" :node="child"></node>
+      <node v-for="child in node.children" v-bind:key="child.ord" :node="child" :lh="lh"></node>
     </ul>
   </li>
   <li v-else>
@@ -20,7 +20,7 @@ export default {
   },
   methods: {
     selectLeaf: function(ev) {
-      console.log(ev.target.dataset.id); // add $emit here to init action
+      this.$root.$emit("select-leaf", ev.target.dataset.id);
     },
     closeBranch: function(dis, bale) {
       let th = 0,
@@ -39,11 +39,11 @@ export default {
         while (cstack.length) {
           let tmp = cstack.pop();
           tmp.$data.closed = true;
-          th += tmp.$children.length * 27;
+          th += tmp.$children.length * this.lh;
           myul = tmp.$el.querySelector("ul");
           myul.style.maxHeight = "0";
         }
-        th += wnode.node.children.length * 27;
+        th += wnode.node.children.length * this.lh;
         while (wnode.node) {
           myul = wnode.$el.querySelector("ul");
           oh = parseInt(myul.style.maxHeight)||0;
@@ -68,7 +68,7 @@ export default {
         }
         while (wnode.node) {
           myul = wnode.$el.querySelector("ul");
-          th += wnode.node.children.length * 27;
+          th += wnode.node.children.length * this.lh;
           myul.style.maxHeight = th + "px";
           wnode = wnode.$parent;
         }
@@ -79,16 +79,21 @@ export default {
     }
   },
   props: {
-    node: Object
+    node: Object,
+    lh: Number
   }
 };
 </script>
 <style>
 .tree-list li:not(.folder) {
-  border-bottom: 1px solid var(--color-tertiary);
+  border-bottom-color: var(--color-tertiary);
+  border-left: 4px solid transparent;
+  border-left-width: 4px;
 }
 .tree-list li:not(.folder):hover {
-  background-color: #6fefc4;
+  background-color: var(--color-secondary);
+  border-left: 4px solid var(--color-secondary);
+  color: var(--color-light-1);
 }
 .tree-list li > span::after {
   font-size: 1.2rem;

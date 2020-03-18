@@ -4,17 +4,14 @@
     <h1>Picton <span>AMRF MSLC Database</span></h1>
   </header>
   <main>
-    <drawer>
-      <section>
-        <button>Upload</button>
-        <hr/>
-        <tree :tree-data="tree" />
-      </section>
-    </drawer>
-    <section>
+     <section>
+    <tabbed-panel tabstr="Category,Metadata,Search">
+       <div slot="Category"><tree :tree-data="tree" /></div>
+       <div slot="Metadata"><Metadata msg="Metadata" @editThis="openEditDialog"/></div>
+       <div slot="Search">Search options</div>
+    </tabbed-panel>
     <Thumnails msg="Thumnails" @editThis="openEditDialog"/>
-    <Metadata msg="Metadata" @editThis="openEditDialog"/>
-    </section>
+     </section>
   </main>
   <modal-dialog/>
   <uoaIcons/>
@@ -25,23 +22,27 @@
 <script>
 import Thumnails from './components/Thumnails.vue'
 import Metadata from './components/Metadata.vue'
+import tabbedPanel from './components/tabbed-panel.vue'
 import uoaIcons from './components/uoa-icon.vue'
 import modalDialog from './components/modalDialog.vue'
-import drawer from './components/drawer.vue'
 import tree from './components/Tree.vue'
 import {EventBus} from './event-bus'
 
 export default {
   name: 'App',
   data: () => ({
+     initial_tab: 0,
     tree: {}
   }),
     components: {
-    Thumnails, Metadata, uoaIcons, modalDialog, drawer, tree//, icon24
+    Thumnails, Metadata, tabbedPanel, uoaIcons, modalDialog, tree//, icon24
   },
   methods:{
     openEditDialog: function(record, name, cb){
       EventBus.$emit('open-dialog', record, name, cb);
+    },
+    selectLeafNode: function(id){
+       console.log(id);
     }
   },
   mounted: function(){
